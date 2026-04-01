@@ -767,3 +767,133 @@ body {
   .toast-stack { left: 16px; right: 16px; bottom: 16px; }
   .toast { max-width: 100%; }
 }
+
+/* ── UI Refresh Overrides ───────────────────────────────── */
+:root {
+  --bg: #0b1220;
+  --bg-1: rgba(14, 25, 43, 0.95);
+  --bg-2: #151f30;
+  --bg-3: #1c2944;
+  --border: rgba(128, 163, 217, 0.25);
+  --border-hi: rgba(163, 199, 255, 0.42);
+  --text: #ecf4ff;
+  --text-2: #b8c8f0;
+  --text-3: #8da3c3;
+  --accent: #6fa8f5;
+  --accent-dim: #3c6cad;
+  --accent-glow: rgba(111, 168, 245, 0.20);
+  --green: #2dd67a;
+  --amber: #f5c440;
+  --red: #f46e5c;
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.30);
+  --radius: 16px;
+  --radius-lg: 22px;
+  --radius-sm: 8px;
+  --transition: 0.18s ease;
+}
+
+body {
+  font-family: 'Inter', 'Space Grotesk', system-ui, sans-serif;
+  min-height: 100vh;
+  color: var(--text);
+  background: radial-gradient(circle at top right, #172b4d 0%, #090f1d 45%, #05080f 100%);
+  background-attachment: fixed;
+}
+
+.site-header {
+  background: linear-gradient(180deg, rgba(5, 10, 18, 0.98), rgba(5, 10, 18, 0.72));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.container { max-width: 1024px; margin: 0 auto; padding: 0 18px; }
+.site-main { padding: 48px 0 80px; }
+
+.logo-text { color: #e8eeff; font-weight: 700; letter-spacing: 0.02em; }
+.nav-link { color: var(--text-2); }
+.nav-link.active, .nav-link:hover { color: #fff; }
+
+.page-hero {
+  padding: 26px 20px 28px;
+  margin-bottom: 34px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(140deg, rgba(49, 88, 154, 0.82), rgba(22, 31, 59, 0.92));
+  border: 1px solid rgba(152, 211, 255, 0.22);
+  box-shadow: var(--shadow);
+}
+.hero-title { color: #f8fbff; text-shadow: 0 8px 18px rgba(1, 8, 26, 0.35); }
+.hero-sub { max-width: 760px; color: #d9e8ff; }
+.accent-text { color: #80d5ff; }
+
+.upload-zone {
+  border: 1px dashed rgba(106, 151, 255, 0.7);
+  background: linear-gradient(150deg, rgba(11, 22, 40, 0.92), rgba(8, 14, 26, 0.95));
+  box-shadow: 0 16px 30px rgba(1, 1, 5, 0.35);
+  padding: 48px 24px;
+}
+.upload-zone:hover, .upload-zone.drag-over { border-color: #8fc7ff; background: rgba(35, 61, 103, 0.7); }
+.drop-title { font-size: 19px; font-weight: 700; color: #f7f9ff; }
+.drop-sub { color: #c9d9f7; }
+.drop-limits { color: #a6b9e2; }
+
+.file-item { background: rgba(14, 25, 42, 0.9); border: 1px solid rgba(138, 165, 219, 0.35); box-shadow: 0 10px 20px rgba(4, 8, 21, 0.35); }
+.file-name { font-size: 15px; }
+.file-meta { color: #9fb6db; }
+
+.preset-card {
+  border-color: rgba(143, 174, 245, 0.25);
+  background: linear-gradient(160deg, rgba(14, 25, 44, 0.95), rgba(11, 19, 35, 0.9));
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+.preset-card:hover { transform: translateY(-2px); border-color: rgba(111, 168, 245, 0.7); }
+.preset-card.selected { border-color: var(--accent); background: rgba(44, 88, 163, 0.6); }
+.preset-name { font-size: 15px; }
+.preset-desc { font-size: 14px; color: var(--text-2); }
+
+.primary-btn {
+  background: linear-gradient(135deg, #44b7f5, #3385fa);
+  color: #ffffff;
+  box-shadow: 0 14px 26px rgba(33, 111, 227, 0.55);
+  border: 1px solid rgba(78, 162, 255, 0.75);
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 4px rgba(2, 15, 45, 0.48);
+  padding: 12px 24px;
+  min-width: 220px;
+}
+.primary-btn:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 16px 30px rgba(24, 118, 237, 0.62);
+}
+.primary-btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.ghost-btn {
+  background: #09152a;
+  color: #d9ecff;
+  border: 1px solid rgba(102, 158, 223, 0.9);
+  box-shadow: inset 0 0 0 2px rgba(102, 158, 223, 0.18);
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 200px;
+}
+.ghost-btn:hover {
+  background: rgba(70, 105, 170, 0.34);
+  border-color: #7db3ff;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(41, 79, 130, 0.35), inset 0 0 0 2px rgba(125, 179, 255, 0.75);
+}
+
+.preview-panel, .results-panel, .progress-bar-wrap, .toast { background: rgba(18, 31, 53, 0.92); border: 1px solid rgba(126, 163, 241, 0.35); box-shadow: 0 14px 28px rgba(4, 7, 16, 0.45); }
+.preview-panel { padding: 22px; }
+
+.section-title { font-size: 12px; color: #acc5f6; }
+
+@media (max-width: 768px) {
+  .site-main { padding: 28px 0 36px; }
+  .page-hero { padding: 18px 14px 20px; }
+  .upload-zone { padding: 32px 16px; }
+}

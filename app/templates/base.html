@@ -7,15 +7,32 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <a href="/">{{ page_title or "Metadata Cleaner" }}</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-icon">🛡️</span>
+        <span class="logo-text">{{ page_title or "Metadata Cleaner" }}</span>
+      </a>
+      <nav class="site-nav">
+        <a class="nav-link active" href="/">Home</a>
+        <a class="nav-link" href="#">How it works</a>
+        <a class="nav-link" href="#">Help</a>
+      </nav>
     </div>
   </header>
 
-  <main>
-    {% block content %}{% endblock %}
+  <main class="site-main">
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span class="footer-text">Metadata Cleaner — Secure file metadata removal</span>
+      <span class="footer-text">&copy; {{ current_year if current_year is defined else "2026" }}</span>
+    </div>
+  </footer>
 
   {% block scripts %}{% endblock %}
 </body>
