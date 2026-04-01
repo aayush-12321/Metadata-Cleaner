@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-hero">
+  <h1 class="hero-title">Strip metadata.<br><span class="accent-text">Protect your privacy.</span></h1>
+  <p class="hero-sub">Upload images, documents, and videos. Preview what's inside, choose a cleaning preset, and download sanitized files - all processed locally on the server.</p>
+</div>
+
+<div class="upload-layout">
+
+  <!-- Drop zone -->
+  <section class="upload-zone" id="dropzone" aria-label="File upload area">
+    <input type="file" id="file-input" multiple accept="{{ allowed_extensions_csv }}" hidden />
+    <div class="drop-inner" id="drop-inner">
+      <div class="drop-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="6" width="28" height="24" rx="3" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <path d="M18 22V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M14 18L18 14L22 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="drop-title">Drop files here</p>
+      <p class="drop-sub">or <button type="button" class="inline-btn" id="browse-btn">browse to upload</button></p>
+      <p class="drop-limits">Up to {{ max_files }} files &middot; Max {{ max_file_size_mb }} MB each</p>
+    </div>
+  </section>
+
+  <!-- File list -->
+  <section class="file-list-section" id="file-list-section" hidden>
+    <div class="section-header">
+      <h2 class="section-title">Files <span class="count-badge" id="file-count">0</span></h2>
+      <button type="button" class="ghost-btn" id="clear-all-btn">Clear all</button>
+    </div>
+    <ul class="file-list" id="file-list" role="list"></ul>
+  </section>
+
+  <!-- Preset + Actions -->
+  <section class="options-section" id="options-section" hidden>
+    <div class="section-header">
+      <h2 class="section-title">Cleaning preset</h2>
+    </div>
+
+    <div class="preset-grid" role="radiogroup" aria-label="Select cleaning preset">
+      <label class="preset-card" data-preset="full">
+        <input type="radio" name="preset" value="full" checked hidden />
+        <div class="preset-top">
+          <span class="preset-name">Full clean</span>
+          <span class="preset-badge danger">Aggressive</span>
+        </div>
+        <p class="preset-desc">Removes all metadata - EXIF, GPS, author, comments, XMP, ICC profiles.</p>
+      </label>
+
+      <label class="preset-card" data-preset="privacy">
+        <input type="radio" name="preset" value="privacy" hidden />
+        <div class="preset-top">
+          <span class="preset-name">Privacy clean</span>
+          <span class="preset-badge warning">Recommended</span>
+        </div>
+        <p class="preset-desc">Strips personal data - GPS, author, serial numbers, comments, software.</p>
+      </label>
+
+      <label class="preset-card" data-preset="safe">
+        <input type="radio" name="preset" value="safe" hidden />
+        <div class="preset-top">
+          <span class="preset-name">Safe clean</span>
+          <span class="preset-badge info">Minimal</span>
+        </div>
+        <p class="preset-desc">Removes only PII fields - GPS, author, device IDs. Keeps color and format data intact.</p>
+      </label>
+    </div>
+
+    <div class="action-row">
+      <button type="button" class="primary-btn" id="clean-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Clean &amp; Download
+      </button>
+      <button type="button" class="ghost-btn" id="preview-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3.5L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Preview metadata
+      </button>
+    </div>
+  </section>
+
+  <!-- Metadata preview panel -->
+  <section class="preview-panel" id="preview-panel" hidden>
+    <div class="section-header">
+      <h2 class="section-title">Metadata preview</h2>
+      <button type="button" class="ghost-btn" id="close-preview-btn">Close</button>
+    </div>
+
+    <div class="preview-file-tabs" id="preview-file-tabs"></div>
+    <div class="preview-content" id="preview-content">
+      <div class="preview-loading" id="preview-loading" hidden>
+        <span class="spinner"></span>
+        <span>Reading metadata...</span>
+      </div>
+      <div id="preview-data"></div>
+    </div>
+  </section>
+
+  <!-- Progress bar -->
+  <div class="progress-bar-wrap" id="progress-wrap" hidden>
+    <div class="progress-bar-inner" id="progress-bar"></div>
+    <p class="progress-label" id="progress-label">Processing...</p>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.APP_CONFIG = {
+    maxFiles: {{ max_files }},
+    maxFileSizeMb: {{ max_file_size_mb }},
+  };
+</script>
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}
