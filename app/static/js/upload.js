@@ -45,6 +45,9 @@
   const previewData      = q("#preview-data");
   const previewLoading   = q("#preview-loading");
   const closePreviewBtn  = q("#close-preview-btn");
+  const resultsPanel     = q("#results-panel");
+  const sizeSummary      = q("#size-summary");
+  const metadataDiff     = q("#metadata-diff");
   const progressWrap     = q("#progress-wrap");
   const progressBar      = q("#progress-bar");
   const progressLabel    = q("#progress-label");
@@ -316,6 +319,51 @@
       .replace(/"/g, "&quot;");
   }
 
+  function renderCleanSummary(batch) {
+    if (!batch || !batch.results || !batch.results.length) {
+      resultsPanel.hidden = true;
+      return;
+    }
+
+    resultsPanel.hidden = false;
+
+    const cards = batch.results.map(file => {
+      const beforeKB = (file.original_size / 1024).toFixed(1);
+      const afterKB = (file.cleaned_size / 1024).toFixed(1);
+      const reducedKB = file.size_reduction_kb.toFixed(1);
+      const pct = file.size_reduction_pct.toFixed(1);
+      return `
+        <div class="size-card">
+          <h3>${escapeHtml(file.filename)}</h3>
+          <p>Original: <strong>${beforeKB} KB</strong></p>
+          <p>Cleaned: <strong>${afterKB} KB</strong></p>
+          <p>Reduction: <strong>${reducedKB} KB (${pct}%)</strong></p>
+        </div>`;
+    }).join("");
+
+    sizeSummary.innerHTML = cards;
+
+    let diffHtml = "";
+    batch.results.forEach(file => {
+      const before = file.metadata_comparison?.removed || [];
+      const remaining = file.metadata_comparison?.remaining || [];
+
+      const removedRows = before.map(field => `<tr class="diff-removed"><td>${escapeHtml(field)}</td><td>Removed</td></tr>`).join("");
+      const remainingRows = remaining.map(field => `<tr class="diff-remaining"><td>${escapeHtml(field)}</td><td>Remaining</td></tr>`).join("");
+
+      diffHtml += `
+        <section class="file-diff">
+          <h3>${escapeHtml(file.filename)}</h3>
+          <table>
+            <thead><tr><th>Field</th><th>Status</th></tr></thead>
+            <tbody>${removedRows}${remainingRows}</tbody>
+          </table>
+        </section>`;
+    });
+
+    metadataDiff.innerHTML = diffHtml;
+  }
+
   // ── Clean & download ──────────────────────────────────────
 
   cleanBtn.addEventListener("click", async () => {
@@ -333,14 +381,15 @@
     formData.append("preset", preset);
 
     try {
-      setProgress(30, "Processing...");
+      setProgress(30, "Processing metadata and cleaning files...");
 
-      const resp = await fetch("/process_files", {
+      const resp = await fetch("/process_files?json=1", {
         method: "POST",
         body: formData,
+        headers: {
+          "Accept": "application/json",
+        },
       });
-
-      setProgress(80, "Packaging...");
 
       if (!resp.ok) {
         let errMsg = "Processing failed.";
@@ -351,26 +400,26 @@
         throw new Error(errMsg);
       }
 
-      setProgress(100, "Done!");
-
-      // Mark all files as done
+      const data = await resp.json();
+      setProgress(60, "Applying summary...");
+      renderCleanSummary(data.batch);
       files.forEach(f => setFileStatus(fileKey(f), "done", "Cleaned"));
 
-      // Trigger download
-      const blob = await resp.blob();
-      const disposition = resp.headers.get("Content-Disposition") || "";
-      const nameMatch = disposition.match(/filename[^;=\n]*=["']?([^"';\n]+)/i);
-      const filename = nameMatch ? nameMatch[1].trim() : "cleaned_files.zip";
+      setProgress(80, "Downloading cleaned archive...");
+      const dlResponse = await fetch(data.download_url);
+      if (!dlResponse.ok) throw new Error("Download failed.");
 
+      const blob = await dlResponse.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = filename;
+      a.download = "cleaned_files.zip";
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
 
+      setProgress(100, "Done!");
       toast("Files cleaned and downloaded.", "success");
 
     } catch (err) {

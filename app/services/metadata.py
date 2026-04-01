@@ -114,3 +114,50 @@ def build_diff(before: dict, after: dict) -> list[dict]:
         diff.append({"field": field, "before": b_val, "after": a_val, "status": status})
 
     return diff
+
+
+def categorize_field(field: str) -> str:
+    """Categorize a metadata field into EXIF/ICC/File/System/Other."""
+    key = field or ""
+    upper = key.upper()
+
+    if upper.startswith("GPS") or "EXIF" in upper or key in _REVERSE_CATEGORY:
+        return "EXIF"
+    if "ICC" in upper:
+        return "ICC"
+
+    file_system_keywords = {
+        "DIRECTORY", "FILENAME", "FILETYPE", "FILESIZE", "MIMETYPE", "SOURCEFILE",
+        "FILEPERMISSIONS", "FILEACCESSDATE", "FILEINODECHANGEDATE", "FILEMODIFYDATE",
+    }
+    if upper in file_system_keywords:
+        return "File/System"
+
+    return "Other"
+
+
+def compare_metadata(before: dict, after: dict) -> dict:
+    """Return removed and remaining fields plus categories."""
+    removed = sorted(set(before) - set(after))
+    remaining = sorted(set(before) & set(after))
+
+    categories = {
+        "EXIF": {"removed": [], "remaining": []},
+        "ICC": {"removed": [], "remaining": []},
+        "File/System": {"removed": [], "remaining": []},
+        "Other": {"removed": [], "remaining": []},
+    }
+
+    for field in removed:
+        cat = categorize_field(field)
+        categories[cat]["removed"].append(field)
+
+    for field in remaining:
+        cat = categorize_field(field)
+        categories[cat]["remaining"].append(field)
+
+    return {
+        "removed": removed,
+        "remaining": remaining,
+        "categories": categories,
+    }

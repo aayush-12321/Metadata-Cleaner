@@ -9,7 +9,13 @@ from pathlib import Path
 from flask import current_app
 
 from .exiftool import extract_metadata, clean_metadata, ExifToolError
-from .metadata import filter_metadata, categorize_metadata, compute_risk, build_diff
+from .metadata import (
+    filter_metadata,
+    categorize_metadata,
+    compute_risk,
+    build_diff,
+    compare_metadata,
+)
 from ..utils.file_utils import make_zip
 
 logger = logging.getLogger(__name__)
@@ -67,27 +73,41 @@ def process_file(file_path: str, preset: str, custom_fields: list[str] | None = 
     try:
         raw_before = extract_metadata(file_path)
         before = filter_metadata(raw_before)
+        before_size = os.path.getsize(file_path)
 
         flags = get_preset_flags(preset, custom_fields)
         clean_metadata(file_path, flags)
 
         raw_after = extract_metadata(file_path)
         after = filter_metadata(raw_after)
+        after_size = os.path.getsize(file_path)
 
     except ExifToolError as exc:
         raise CleaningError(str(exc)) from exc
     except ValueError as exc:
         raise CleaningError(str(exc)) from exc
 
+    metadata_comparison = compare_metadata(before, after)
+    diff = build_diff(before, after)
+    removed_count = sum(1 for d in diff if d["status"] == "removed")
+
+    size_diff_kb = round((before_size - after_size) / 1024, 2)
+    size_diff_pct = round((size_diff_kb / (before_size / 1024)) * 100, 2) if before_size > 0 else 0
+
     return {
         "filename": filename,
         "before": before,
         "after": after,
-        "diff": build_diff(before, after),
+        "diff": diff,
         "risk": compute_risk(before),
         "categories_before": categorize_metadata(before),
         "categories_after": categorize_metadata(after),
-        "fields_removed": sum(1 for d in build_diff(before, after) if d["status"] == "removed"),
+        "fields_removed": removed_count,
+        "metadata_comparison": metadata_comparison,
+        "original_size": before_size,
+        "cleaned_size": after_size,
+        "size_reduction_kb": size_diff_kb,
+        "size_reduction_pct": size_diff_pct,
     }
 
 
