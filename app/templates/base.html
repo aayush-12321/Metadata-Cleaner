@@ -3,9 +3,64 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- <title>{{ page_title or "Metadata Cleaner"    }}</title>  -->
-  <title>{% if not page_title %} Metadata Cleaner {% else %} Metadata Cleaner - {{page_title}}   {% endif %}</title>
+  
+  <!-- SEO Meta Tags -->
+  <title>{% if current_page == 'home' %}Metadata Cleaner - Remove Image, Document & Video Metadata Online{% elif page_title %}{{ page_title }} - Metadata Cleaner{% else %}Metadata Cleaner{% endif %}</title>
+  <meta name="description" content="{% if current_page == 'home' %}Strip sensitive metadata from images, documents, and videos. Quick, secure, and privacy-focused cleaning tool. All processing done locally on the server.{% elif current_page == 'how-it-works' %}Learn how Metadata Cleaner works. Our step-by-step guide shows how we securely remove EXIF data and hidden metadata from your files.{% elif current_page == 'help' %}Get help with Metadata Cleaner. Find answers to common questions about file formats, privacy, and supported file types.{% else %}{{ page_title }}{% endif %}" />
+  <meta name="keywords" content="metadata removal, EXIF data remover, image metadata cleaner, document cleaning, video metadata stripper, privacy tool, secure file processing, local processing" />
+  <meta name="author" content="Metadata Cleaner" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="google-site-verification" content="" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ request.url_root }}{% if current_page == 'home' %}{% elif current_page == 'how-it-works' %}how-it-works{% elif current_page == 'help' %}help{% endif %}" />
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{% if current_page == 'home' %}Metadata Cleaner - Remove Image, Document & Video Metadata Online{% elif page_title %}{{ page_title }} - Metadata Cleaner{% else %}Metadata Cleaner{% endif %}" />
+  <meta property="og:description" content="Strip sensitive metadata from your files. Secure, private, and locally processed metadata removal tool." />
+  <meta property="og:url" content="{{ request.url_root }}{% if current_page == 'home' %}{% elif current_page == 'how-it-works' %}how-it-works{% elif current_page == 'help' %}help{% endif %}" />
+  <meta property="og:site_name" content="Metadata Cleaner" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Metadata Cleaner - Remove Sensitive Data from Files" />
+  <meta name="twitter:description" content="Quick, secure metadata removal for images, documents, and videos. Local processing keeps your files private." />
+  
+  <!-- Security & Performance -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="theme-color" content="#0e0e10" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Metadata Cleaner",
+    "description": "Strip sensitive metadata from images, documents, and videos securely",
+    "url": "{{ request.url_root }}",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "NPR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Metadata Cleaner"
+    }
+  }
+  </script>
+  
   <script>
     // Apply theme immediately to prevent flash of unstyled content
     (function() {

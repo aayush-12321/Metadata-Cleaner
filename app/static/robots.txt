@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Crawl delay for polite crawling
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://yourdomain.com/sitemap.xml

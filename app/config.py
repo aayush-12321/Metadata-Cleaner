@@ -3,10 +3,13 @@ Configuration management via environment variables with safe defaults.
 """
 
 import os
+from datetime import date
 
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-change-in-production")
+    SITEMAP_LAST_MODIFIED = os.getenv("SITEMAP_LAST_MODIFIED", date.today().isoformat())
+    DOMAIN_URL = os.getenv("DOMAIN_URL", "https://yoursite.com")
 
     # Upload limits
     MAX_FILES = int(os.getenv("MAX_FILES", 20))
@@ -20,6 +23,8 @@ class Config:
     # Branding
     PAGE_TITLE = os.getenv("PAGE_TITLE", "Metadata Cleaner")
     SUPPORT_MESSAGE = os.getenv("SUPPORT_MESSAGE", "For support, contact your IT department.")
+    DOMAIN_URL = os.getenv("DOMAIN_URL", "https://yoursite.com")
+
 
     # ExifTool
     EXIFTOOL_PATH = os.getenv("EXIFTOOL_PATH", None)  # None = auto-detect from PATH
