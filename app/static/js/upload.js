@@ -478,6 +478,37 @@
 
   clearAllBtn.addEventListener("click", clearAll);
 
+  // Theme toggle (dark/light mode)
+  const themeToggle = q("#theme-toggle");
+  const userMode = localStorage.getItem("themeMode");
+  const defaultMode = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+  function applyTheme(mode) {
+    const body = document.body;
+    if (!body) return;
+
+    if (mode === "dark") {
+      body.classList.add("dark-mode");
+      body.classList.remove("light-mode");
+      if (themeToggle) themeToggle.textContent = "🌙";
+    } else {
+      body.classList.add("light-mode");
+      body.classList.remove("dark-mode");
+      if (themeToggle) themeToggle.textContent = "☀️";
+    }
+
+    localStorage.setItem("themeMode", mode);
+  }
+
+  applyTheme(userMode || defaultMode);
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const newMode = document.body.classList.contains("dark-mode") ? "light" : "dark";
+      applyTheme(newMode);
+    });
+  }
+
   // Prevent browser default drop behavior outside the zone
   document.addEventListener("dragover", (e) => e.preventDefault());
   document.addEventListener("drop",     (e) => e.preventDefault());
