@@ -16,7 +16,18 @@ def index():
         support_message=current_app.config["SUPPORT_MESSAGE"],
         allowed_extensions=allowed_extensions,
         allowed_extensions_csv=allowed_extensions_csv,
+        current_page="home",
     )
+
+
+@main_bp.route("/how-it-works")
+def how_it_works():
+    return render_template("how-it-works.html", page_title="How It Works", current_page="how-it-works")
+
+
+@main_bp.route("/help")
+def help():
+    return render_template("help.html", page_title="Help", current_page="help")
 
 
 @main_bp.route("/health")

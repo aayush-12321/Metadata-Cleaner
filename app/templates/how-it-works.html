@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-hero">
+  <h1 class="hero-title">How it <span class="accent-text">works</span></h1>
+  <p class="hero-sub">Learn about the technology behind secure metadata removal and privacy protection.</p>
+</div>
+
+<div class="content-layout">
+  <section class="content-section">
+    <h2 class="section-title">What is Metadata?</h2>
+    <p>Metadata is hidden information embedded in files like photos, documents, and videos. It can include:</p>
+    <ul>
+      <li><strong>EXIF data:</strong> Camera settings, date/time, software used</li>
+      <li><strong>GPS coordinates:</strong> Exact location where photo was taken</li>
+      <li><strong>Author information:</strong> Who created the file</li>
+      <li><strong>Device details:</strong> Camera model, serial numbers, software versions</li>
+      <li><strong>Comments and descriptions:</strong> User-added notes</li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2 class="section-title">The Cleaning Process</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Upload Files</h3>
+        <p>Files are uploaded to our secure server but never stored permanently.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Extract Metadata</h3>
+        <p>We use ExifTool to safely read and analyze all embedded metadata.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Choose Preset</h3>
+        <p>Select from different cleaning levels based on your privacy needs.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Clean & Download</h3>
+        <p>Metadata is removed and you download the sanitized files.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2 class="section-title">Privacy & Security</h2>
+    <ul>
+      <li><strong>Local processing:</strong> All cleaning happens on the server, not in your browser</li>
+      <li><strong>No storage:</strong> Files are deleted immediately after processing</li>
+      <li><strong>Open source:</strong> Our code is transparent and auditable</li>
+      <li><strong>ExifTool:</strong> Industry-standard tool trusted by professionals</li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2 class="section-title">Supported Formats</h2>
+    <p>We support a wide range of file formats including:</p>
+    <div class="format-grid">
+      <div class="format-item">Images: JPG, PNG, TIFF, RAW</div>
+      <div class="format-item">Documents: PDF, DOCX, XLSX</div>
+      <div class="format-item">Videos: MP4, MOV, AVI</div>
+      <div class="format-item">Audio: MP3, WAV, FLAC</div>
+    </div>
+  </section>
+</div>
+
+<style>
+.content-layout {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content-section {
+  margin-bottom: 48px;
+}
+
+.content-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.content-section p {
+  margin-bottom: 16px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.content-section ul {
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+
+.content-section li {
+  margin-bottom: 8px;
+  color: var(--text-2);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.step {
+  text-align: center;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-1);
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.step h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.step p {
+  color: var(--text-2);
+  font-size: 14px;
+}
+
+.format-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.format-item {
+  padding: 12px 16px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+body.light-mode .step {
+  background: #f8fbff;
+  border-color: rgba(120, 169, 217, 0.35);
+}
+
+body.light-mode .format-item {
+  background: #e8f2ff;
+  border-color: rgba(120, 169, 217, 0.35);
+}
+</style>
+{% endblock %}

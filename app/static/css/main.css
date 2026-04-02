@@ -43,7 +43,7 @@ body {
   flex-direction: column;
 }
 
-/* ── Layout ──────────────────────────────────────────── */
+/*  Layout  */
 
 .container {
   width: 100%;
@@ -57,7 +57,7 @@ body {
   padding: 48px 0 80px;
 }
 
-/* ── Header ──────────────────────────────────────────── */
+/*  Header  */
 
 .site-header {
   border-bottom: 1px solid var(--border);
@@ -117,7 +117,7 @@ body {
   color: var(--text);
 }
 
-/* ── Footer ──────────────────────────────────────────── */
+/*  Footer  */
 
 .site-footer {
   border-top: 1px solid var(--border);
@@ -145,7 +145,7 @@ body.light-mode .site-footer {
   border-top-color: rgba(84, 148, 221, 0.34);
 }
 
-/* ── Hero ────────────────────────────────────────────── */
+/*  Hero  */
 
 .page-hero {
   margin-bottom: 48px;
@@ -170,7 +170,7 @@ body.light-mode .site-footer {
   max-width: 560px;
 }
 
-/* ── Upload layout ───────────────────────────────────── */
+/*  Upload layout ─ */
 
 .upload-layout {
   display: flex;
@@ -178,7 +178,7 @@ body.light-mode .site-footer {
   gap: 24px;
 }
 
-/* ── Drop zone ───────────────────────────────────────── */
+/*  Drop zone ─ */
 
 .upload-zone {
   border: 1.5px dashed var(--border-hi);
@@ -237,7 +237,7 @@ body.light-mode .site-footer {
   padding: 0;
 }
 
-/* ── Section scaffolding ─────────────────────────────── */
+/*  Section scaffolding ─ */
 
 .section-header {
   display: flex;
@@ -257,7 +257,7 @@ body.light-mode .site-footer {
   gap: 8px;
 }
 
-/* ── File list ───────────────────────────────────────── */
+/*  File list ─ */
 
 .file-list {
   list-style: none;
@@ -357,7 +357,7 @@ body.light-mode .site-footer {
   font-weight: 400;
 }
 
-/* ── Preset cards ────────────────────────────────────── */
+/*  Preset cards  */
 
 .preset-grid {
   display: grid;
@@ -408,7 +408,8 @@ body.light-mode .site-footer {
 
 .preset-badge.danger  { background: var(--red-dim);   color: var(--red);   }
 .preset-badge.warning { background: var(--amber-dim);  color: var(--amber); }
-.preset-badge.info    { background: var(--accent-dim); color: var(--accent);}
+/* .preset-badge.info    { background: var(--accent-dim); color: var(--accent);} */
+.preset-badge.info    { background: var(--accent-dim); color: #ebebf9;}
 
 .preset-desc {
   font-size: 12px;
@@ -416,7 +417,7 @@ body.light-mode .site-footer {
   line-height: 1.5;
 }
 
-/* ── Action row ──────────────────────────────────────── */
+/*  Action row  */
 
 .action-row {
   display: flex;
@@ -470,7 +471,7 @@ body.light-mode .site-footer {
   border-color: var(--text-3);
 }
 
-/* ── Metadata preview panel ──────────────────────────── */
+/*  Metadata preview panel  */
 
 .preview-panel {
   background: var(--bg-1);
@@ -590,7 +591,7 @@ body.light-mode .site-footer {
   padding: 24px;
 }
 
-/* ── Clean summary ───────────────────────────────────── */
+/*  Clean summary ─ */
 
 .results-panel {
   background: var(--bg-1);
@@ -652,7 +653,7 @@ body.light-mode .site-footer {
   color: var(--red);
 }
 
-/* ── Progress bar ────────────────────────────────────── */
+/*  Progress bar  */
 
 .progress-bar-wrap {
   background: var(--bg-1);
@@ -676,7 +677,7 @@ body.light-mode .site-footer {
   font-family: var(--mono);
 }
 
-/* ── Spinner ─────────────────────────────────────────── */
+/*  Spinner ─ */
 
 .spinner {
   display: inline-block;
@@ -700,7 +701,7 @@ body.light-mode .site-footer {
   color: var(--text-2);
 }
 
-/* ── Toast notifications ─────────────────────────────── */
+/*  Toast notifications ─ */
 
 .toast-stack {
   position: fixed;
@@ -739,7 +740,7 @@ body.light-mode .site-footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Error page ──────────────────────────────────────── */
+/*  Error page  */
 
 .error-page {
   text-align: center;
@@ -761,7 +762,7 @@ body.light-mode .site-footer {
   margin-bottom: 24px;
 }
 
-/* ── Responsive ──────────────────────────────────────── */
+/*  Responsive  */
 
 @media (max-width: 600px) {
   .hero-title { font-size: 26px; }
@@ -772,7 +773,7 @@ body.light-mode .site-footer {
   .toast { max-width: 100%; }
 }
 
-/* ── UI Refresh Overrides ───────────────────────────────── */
+/*  UI Refresh Overrides ─ */
 :root {
   --bg: #071122;
   --bg-1: rgba(3, 18, 38, 0.96);
@@ -888,6 +889,92 @@ body.light-mode .nav-link:hover {
 
 
 
+
+
+
+/* Info btn  */
+.info-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0b3064;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.info-btn:hover,
+.info-wrapper:focus-within .info-btn {
+  transform: scale(1.05);
+  background: #ffffff;
+}
+
+.supported-format {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+
+  width: 300px;                 
+  max-width: 90vw;              
+  
+  padding: 14px 16px;
+  border-radius: 12px;
+
+  background: rgba(15, 20, 34, 0.96);
+  color: #edf6ff;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  white-space: normal;          
+  word-break: normal;           
+  overflow-wrap: anywhere;      
+
+  text-align: left;             
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: all 0.25s ease;
+  z-index: 10;
+}
+
+.supported-format::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent rgba(15, 20, 34, 0.95) transparent;
+}
+
+.info-wrapper:hover .supported-format,
+.info-wrapper:focus-within .supported-format {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
 
 
 
@@ -1041,6 +1128,10 @@ body.light-mode .preset-card.selected {
 }
 body.light-mode .preset-name,
 body.light-mode .preset-desc { color: #174370; }
+
+body.light-mode .preset-badge.danger  { background: #fee2e2; color: #991b1b; }
+body.light-mode .preset-badge.warning { background: #fef3c7; color: #92400e; }
+body.light-mode .preset-badge.info    { background: #e0e7ff; color: #3730a3; }
 
 body.light-mode .primary-btn {
   background: linear-gradient(135deg, #13bdf9, #0f96ce);

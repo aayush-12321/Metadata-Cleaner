@@ -3,20 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ page_title or "Metadata Cleaner" }}</title>
+  <!-- <title>{{ page_title or "Metadata Cleaner"    }}</title>  -->
+  <title>{% if not page_title %} Metadata Cleaner {% else %} Metadata Cleaner - {{page_title}}   {% endif %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+  <script>
+    // Apply theme immediately to prevent flash of unstyled content
+    (function() {
+      const userMode = localStorage.getItem("themeMode");
+      const defaultMode = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      const mode = userMode || defaultMode;
+      document.documentElement.classList.add(mode + "-mode");
+    })();
+  </script>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="/">
         <span class="logo-icon">🛡️</span>
-        <span class="logo-text">{{ page_title or "Metadata Cleaner" }}</span>
+        <span class="logo-text">{{ "Metadata Cleaner" }}</span>
       </a>
       <nav class="site-nav">
-        <a class="nav-link active" href="/">Home</a>
-        <a class="nav-link" href="#">How it works</a>
-        <a class="nav-link" href="#">Help</a>
+        <a class="nav-link{% if current_page == 'home' %} active{% endif %}" href="/">Home</a>
+        <a class="nav-link{% if current_page == 'how-it-works' %} active{% endif %}" href="/how-it-works">How it works</a>
+        <a class="nav-link{% if current_page == 'help' %} active{% endif %}" href="/help">Help</a>
       </nav>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" type="button">☀️</button>
     </div>
@@ -35,6 +45,52 @@
     </div>
   </footer>
 
-  {% block scripts %}{% endblock %}
+  {% block scripts %}
+  <script>
+    // Theme toggle (dark/light mode) - available on all pages
+    (function() {
+      "use strict";
+
+      const themeToggle = document.getElementById("theme-toggle");
+      const userMode = localStorage.getItem("themeMode");
+      const defaultMode = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+
+      function applyTheme(mode) {
+        const body = document.body;
+        const html = document.documentElement;
+        if (!body || !html) return;
+
+        if (mode === "dark") {
+          body.classList.add("dark-mode");
+          body.classList.remove("light-mode");
+          html.classList.add("dark-mode");
+          html.classList.remove("light-mode");
+          if (themeToggle) themeToggle.textContent = "🌙";
+        } else {
+          body.classList.add("light-mode");
+          body.classList.remove("dark-mode");
+          html.classList.add("light-mode");
+          html.classList.remove("dark-mode");
+          if (themeToggle) themeToggle.textContent = "☀️";
+        }
+
+        localStorage.setItem("themeMode", mode);
+      }
+
+      // Apply theme on page load (remove the inline script classes and apply properly)
+      document.documentElement.classList.remove("dark-mode", "light-mode");
+      document.body.classList.remove("dark-mode", "light-mode");
+      applyTheme(userMode || defaultMode);
+
+      // Handle theme toggle clicks
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const newMode = document.body.classList.contains("dark-mode") ? "light" : "dark";
+          applyTheme(newMode);
+        });
+      }
+    })();
+  </script>
+  {% endblock %}
 </body>
 </html>

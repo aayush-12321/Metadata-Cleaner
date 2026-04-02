@@ -3,7 +3,18 @@
 {% block content %}
 <div class="page-hero">
   <h1 class="hero-title">Strip metadata.<br><span class="accent-text">Protect your privacy.</span></h1>
-  <p class="hero-sub">Upload images, documents, and videos. Preview what's inside, choose a cleaning preset, and download sanitized files - all processed locally on the server.</p>
+  <p class="hero-sub">
+    Upload images, documents, and videos. Preview what's inside, choose a cleaning preset, and download sanitized files - all processed locally on the server.
+    <span class="info-wrapper" tabindex="0" aria-label="Supported formats">
+      <button class="info-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Supported formats">i</button>
+      <span class="supported-format">
+        <strong>Supported formats</strong><br><br>
+        Images: JPG, PNG, TIFF, RAW, HEIC, WEBP<br>
+        Documents: PDF, DOCX, XLSX<br>
+        Videos: MP4, MOV, AVI<br>
+        Audio: MP3, WAV, FLAC
+      </span>    </span>
+  </p>
 </div>
 
 <div class="upload-layout">
@@ -124,4 +135,5 @@
   };
 </script>
 <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{{ super() }}
 {% endblock %}

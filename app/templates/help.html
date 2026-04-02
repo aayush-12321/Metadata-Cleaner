@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-hero">
+  <h1 class="hero-title">Help & <span class="accent-text">Support</span></h1>
+  <p class="hero-sub">Get answers to common questions and learn how to use Metadata Cleaner effectively.</p>
+</div>
+
+<div class="content-layout">
+  <section class="content-section">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3 class="faq-question">What is metadata and why should I remove it?</h3>
+      <p class="faq-answer">Metadata is hidden information in files that can reveal personal details like your location, device information, or creation time. Removing it protects your privacy when sharing files online.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">Is my data safe?</h3>
+      <p class="faq-answer">Yes! Files are processed locally on our server and automatically deleted after processing. We never store your files permanently or share them with third parties.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">What file formats are supported?</h3>
+      <p class="faq-answer">We support images (JPG, PNG, TIFF, RAW), documents (PDF, DOCX, XLSX), videos (MP4, MOV, AVI), and audio files (MP3, WAV, FLAC).</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">What's the difference between cleaning presets?</h3>
+      <p class="faq-answer">
+        <strong>Full clean:</strong> Removes all metadata including GPS, author, comments, and technical data.<br>
+        <strong>Basic clean:</strong> Removes sensitive data like GPS and author but keeps technical metadata.<br>
+        <strong>Custom:</strong> Choose exactly what to remove.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">Why can't I upload certain files?</h3>
+      <p class="faq-answer">We only accept supported file formats for security reasons. Check that your file extension matches our supported formats and is under the size limit.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">Can I process multiple files at once?</h3>
+      <p class="faq-answer">Yes! You can upload up to {{ max_files }} files at once. They'll all be processed with the same cleaning preset.</p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2 class="section-title">How to Use</h2>
+    <div class="usage-guide">
+      <div class="guide-step">
+        <div class="guide-number">1</div>
+        <div class="guide-content">
+          <h4>Upload Files</h4>
+          <p>Drag and drop files onto the upload area or click "browse to upload".</p>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-number">2</div>
+        <div class="guide-content">
+          <h4>Preview Metadata</h4>
+          <p>Click the preview button to see what metadata is in your files before cleaning.</p>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-number">3</div>
+        <div class="guide-content">
+          <h4>Select Preset</h4>
+          <p>Choose a cleaning preset based on your privacy needs.</p>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-number">4</div>
+        <div class="guide-content">
+          <h4>Download Clean Files</h4>
+          <p>Click "Clean Files" and download your sanitized files.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2 class="section-title">Troubleshooting</h2>
+
+    <div class="trouble-item">
+      <h4>Files won't upload</h4>
+      <ul>
+        <li>Check file size (max {{ max_file_size_mb }} MB per file)</li>
+        <li>Ensure file format is supported</li>
+        <li>Try refreshing the page</li>
+      </ul>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Cleaning takes too long</h4>
+      <ul>
+        <li>Large files take longer to process</li>
+        <li>Multiple files are processed sequentially</li>
+        <li>Try processing fewer files at once</li>
+      </ul>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Download doesn't start</h4>
+      <ul>
+        <li>Check your browser's download settings</li>
+        <li>Disable popup blockers</li>
+        <li>Try a different browser</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2 class="section-title">Contact & Support</h2>
+    <p>If you need help or have questions, you can:</p>
+    <ul>
+      <li>Check our <a href="/how-it-works">How It Works</a> page for technical details</li>
+      <li>Report issues on our <a href="https://github.com/aayush-12321" target="_blank">GitHub repository</a></li>
+      <li>Email us at support@metadata-cleaner.com</li>
+    </ul>
+  </section>
+</div>
+
+<style>
+.content-layout {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content-section {
+  margin-bottom: 48px;
+}
+
+.content-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+.faq-item {
+  margin-bottom: 24px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-1);
+}
+
+.faq-question {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.faq-answer {
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.usage-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guide-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.guide-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.guide-content h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.guide-content p {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.trouble-item {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-1);
+}
+
+.trouble-item h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.trouble-item ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.trouble-item li {
+  margin-bottom: 4px;
+  color: var(--text-2);
+  font-size: 14px;
+}
+
+body.light-mode .faq-item,
+body.light-mode .trouble-item {
+  background: #f8fbff;
+  border-color: rgba(120, 169, 217, 0.35);
+}
+</style>
+{% endblock %}
