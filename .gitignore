@@ -20,6 +20,6 @@ dist/
 .coverage
 .coverage.*
 htmlcov/
-.env.*
+# .env.*
 instance/
 uploads/

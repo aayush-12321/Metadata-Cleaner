@@ -21,7 +21,14 @@
   <meta property="og:description" content="Strip sensitive metadata from your files. Secure, private, and locally processed metadata removal tool." />
   <meta property="og:url" content="{{ request.url_root }}{% if current_page == 'home' %}{% elif current_page == 'how-it-works' %}how-it-works{% elif current_page == 'help' %}help{% endif %}" />
   <meta property="og:site_name" content="Metadata Cleaner" />
-  
+
+  <!-- Favicon -->
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}" />
+  <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}" />
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Metadata Cleaner - Remove Sensitive Data from Files" />
@@ -95,7 +102,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <span class="footer-text">Metadata Cleaner — Secure file metadata removal</span>
+      <span class="footer-text">Metadata Cleaner - Secure file metadata removal</span>
       <span class="footer-text">&copy; {{ current_year if current_year is defined else "2026" }}</span>
     </div>
   </footer>
